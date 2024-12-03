@@ -11,7 +11,6 @@
   },
   "reflection": true,
   "files": [
-    "client.rpc.ts",
     "app.ts"
   ]
 }
