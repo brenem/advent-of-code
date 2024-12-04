@@ -1,21 +1,9 @@
-import { DataLoader } from '../../../utils/data-loader';
-import { DayChallenge } from '../day-challenge';
+import { Challenge } from '../challenge';
 
-export class Day1 extends DayChallenge {
-    constructor() {
-        super(1, 2024);
-    }
-
+export class Day1 extends Challenge {    
     async part1(input: string): Promise<number> {
-        console.log(input);
-        const data = DataLoader.readLines(input, (line) => {
-            let parts = line.split(' ').filter((p) => !!p);
-            const leftNum = parseInt(parts[0].trim());
-            const rightNum = parseInt(parts[1].trim());
+        const data = this.getData(input);
 
-            return { leftNum, rightNum };
-        });
-console.log(data);
         const leftNumbers = data.map((d) => d.leftNum).sort();
         const rightNumbers = data.map((d) => d.rightNum).sort();
 
@@ -28,6 +16,29 @@ console.log(data);
     }
 
     async part2(input: string): Promise<number> {
-        return 0;
+        const data = this.getData(input);
+
+        const leftNumbers = data.map((d) => d.leftNum);
+        const rightNumbers = data.map((d) => d.rightNum);
+
+        const similarityScores: number[] = [];
+        for (let i = 0; i < leftNumbers.length; i++) {
+            // count how many times leftNumbers[i] is in the rightNumbers array
+            const count = rightNumbers.filter((n) => n === leftNumbers[i]).length;
+            const similarityScore = leftNumbers[i] * count;
+            similarityScores.push(similarityScore);
+        }
+
+        return similarityScores.reduce((acc, curr) => acc + curr, 0);
+    }
+
+    private getData(input: string): { leftNum: number; rightNum: number }[] {
+        return this.dataLoader.readLines(input, (line) => {
+            let parts = line.split(' ').filter((p) => !!p);
+            const leftNum = parseInt(parts[0].trim());
+            const rightNum = parseInt(parts[1].trim());
+
+            return { leftNum, rightNum };
+        });
     }
 }

@@ -26,7 +26,7 @@ export class InputProvider {
         // if year is not provided, default to the current year
         year = year || new Date().getFullYear();
 
-        const filePath = `${year}/day${day}-part${part}.txt`;
+        const filePath = `${year}/day${day}/part${part}.txt`;
         if (await this.samples.exists(filePath)) {
             return await this.samples.readAsText(filePath);
         } else {
