@@ -1,10 +1,10 @@
-# App
+# Advent Of Code
 
-Advent of Code 2024 in Typescript
+Advent of Code in Typescript
 
 ## Overview
 
-This project is a TypeScript implementation for solving Advent of Code 2024 challenges. It includes various utilities and services to scaffold, run, and test the challenges.
+This project is a TypeScript implementation for solving Advent of Code challenges. It includes various utilities and services to scaffold, run, and test the challenges.
 
 ## Commands
 
