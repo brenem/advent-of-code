@@ -37,7 +37,7 @@ new App({
             new FilesystemLocalAdapter({ root: path.join(__dirname, 'src/app/challenges').slice(3) })
         )
     ],
-    imports: [new FrameworkModule({ debug: false })]
+    imports: [new FrameworkModule()]
 })
     .loadConfigFromEnv({ envFilePath: ['production.env', '.env'] })
     .setup((module, config: AppConfig) => {
