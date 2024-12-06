@@ -1,6 +1,6 @@
-import { Logger } from "@deepkit/logger";
+import { Logger } from '@deepkit/logger';
 import axios from 'axios';
-import { AppConfig } from "../config";
+import { AppConfig } from '../config';
 
 export class Downloader {
     constructor(private logger: Logger, private config: AppConfig) {}
@@ -9,12 +9,18 @@ export class Downloader {
         // if year is not provided, default to the current year
         year = year || new Date().getFullYear();
 
-        const url = this.config.aocChallengeUrlTemplate.replace(':year', year.toString()).replace(':day', day.toString());
+        const url = this.config.aocChallengeUrlTemplate
+            .replace(':year', year.toString())
+            .replace(':day', day.toString());
         const result = await this.get<string>(`${url}/input`);
         return result;
     }
 
     private async get<T>(url: string) {
+        if (!this.config.aocSessionCookie) {
+            throw new Error('Missing AOC session cookie');
+        }
+
         const response = await axios.request<T>({
             url,
             method: 'GET',

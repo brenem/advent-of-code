@@ -41,10 +41,6 @@ new App({
 })
     .loadConfigFromEnv({ envFilePath: ['production.env', '.env'] })
     .setup((module, config: AppConfig) => {
-        if (!config.aocSessionCookie) {
-            throw new Error('Missing AOC session cookie');
-        }
-
         if (config.environment === 'production') {
             //enable logging JSON messages instead of formatted strings
             module.configureProvider<Logger>((v) => v.setTransport([new JSONTransport()]));
