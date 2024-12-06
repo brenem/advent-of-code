@@ -11,11 +11,11 @@ export class InputProvider {
 
         const filePath = `${year}/day${day}.txt`;
         if (await this.inputs.exists(filePath)) {
-            this.logger.log('Input file already exists, reading from disk');
+            this.logger.log('Input file already exists, reading from disk\n');
             return await this.inputs.readAsText(filePath);
         }
 
-        this.logger.log('Input file not found, downloading from Advent of Code');
+        this.logger.log('Input file not found, downloading from Advent of Code\n');
         const result = await this.downloader.downloadInput(day, year);
         this.inputs.write(filePath, result);
 
@@ -30,7 +30,7 @@ export class InputProvider {
         if (await this.samples.exists(filePath)) {
             return await this.samples.readAsText(filePath);
         } else {
-            this.logger.warn(`Sample file not found: ${filePath}`);
+            this.logger.warn(`Sample file not found: ${filePath}\n`);
             return '';
         }
     }
