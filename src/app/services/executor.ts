@@ -3,32 +3,59 @@ import { ChallengeLocator } from './challenge-locator';
 import { InputProvider } from './input-provider';
 
 export class Executor {
-    constructor(private logger: Logger, private challengeLocator: ChallengeLocator, private inputProvider: InputProvider) {}
+    constructor(
+        private logger: Logger,
+        private challengeLocator: ChallengeLocator,
+        private inputProvider: InputProvider
+    ) {}
 
     async run(day: number, year: number, isSampleTest: boolean) {
         const challenge = await this.challengeLocator.findChallenge(day, year);
         if (challenge) {
-            let input: string;
-            let part1: number;
-            let part2: number;
-
             if (isSampleTest) {
                 const part1Input = await this.inputProvider.getSample(day, 1, year);
                 const part2Input = await this.inputProvider.getSample(day, 2, year);
 
-                part1 = await challenge.part1(part1Input);
-                part2 = await challenge.part2(part2Input);
+                await this.runPart1(challenge, part1Input);
+                await this.runPart2(challenge, part2Input);
             } else {
-                input = await this.inputProvider.getInput(day, year);
+                const input = await this.inputProvider.getInput(day, year);
 
-                part1 = await challenge.part1(input);
-                part2 = await challenge.part2(input);
+                await this.runPart1(challenge, input);
+                await this.runPart2(challenge, input);
             }
-
-            this.logger.log('Part 1:', part1);
-            this.logger.log('Part 2:', part2);
         } else {
             this.logger.error('No challenge found for day', day, 'year', year);
         }
+    }
+
+    private async runPart1(challenge: any, input: string) {
+        if (!input) {
+            throw new Error('No input provided for part 1');
+        };
+
+        this.logger.log('Running part 1...');
+
+        const startTime = performance.now();
+        const result = await challenge.part1(input);
+        const endTime = performance.now();
+
+        this.logger.log('Part 1:', result);
+        this.logger.log('Execution time:', Math.round(endTime - startTime), 'ms\n');
+    }
+
+    private async runPart2(challenge: any, input: string) {
+        if (!input) {
+            throw new Error('No input provided for part 2');
+        };
+
+        this.logger.log('Running part 2...');
+        
+        const startTime = performance.now();
+        const result = await challenge.part2(input);
+        const endTime = performance.now();
+
+        this.logger.log('Part 2:', result);
+        this.logger.log('Execution time:', Math.round(endTime - startTime), 'ms\n');
     }
 }

@@ -1,5 +1,5 @@
 export class DataLoader {
-    readLines<T>(input: string, selector: (line: string) => T, separator: string = '\n'): T[] {
+    readLines<T>(input: string, selector: (line: string) => T, separator: string | RegExp = '\n'): T[] {
         const normalized = this.normalizeLineEndings(input);
         const split = normalized.split(separator).filter((l) => !!l);
         return split.map(selector);
