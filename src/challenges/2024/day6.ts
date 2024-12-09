@@ -30,7 +30,7 @@ export class Day6 extends Challenge {
             testGrid[current.heading.location.y][current.heading.location.x] = 'O';
 
             const newResult = this.getVisitedHeadings(testGrid);
-            if (newResult.some((x) => x.count > 5)) {
+            if (newResult.some((x) => x.count > 4)) {
                 inifiteLoops++;
             }
         }
@@ -60,7 +60,7 @@ export class Day6 extends Challenge {
                     visitedHeadings.push({ heading: currentHeading, count: 1 });
                 } else {
                     visitation.count++;
-                    if (visitation.count > 5) {
+                    if (visitation.count > 4) {
                         break;
                     }
                 }

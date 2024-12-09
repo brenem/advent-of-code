@@ -1,9 +1,10 @@
-import { Logger } from '@deepkit/logger';
 import axios from 'axios';
-import { AppConfig } from '../config';
+import { AppConfig } from '../config/config';
+import { Service } from 'typedi';
 
+@Service()
 export class Downloader {
-    constructor(private logger: Logger, private config: AppConfig) {}
+    constructor(private config: AppConfig) { }
 
     async downloadInput(day: number, year?: number): Promise<string> {
         // if year is not provided, default to the current year
@@ -22,11 +23,11 @@ export class Downloader {
         }
 
         const response = await axios.request<T>({
-            url,
-            method: 'GET',
             headers: {
                 cookie: `session=${this.config.aocSessionCookie}`
-            }
+            },
+            method: 'GET',
+            url
         });
 
         return response.data as T;
