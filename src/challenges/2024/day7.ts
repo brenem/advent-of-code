@@ -1,9 +1,4 @@
-import { error } from 'console';
-import { evaluateExpression } from '../../helpers/math';
 import { Challenge } from '../challenge';
-import { number, numericDependencies } from 'mathjs';
-import exp from 'constants';
-import { parse } from 'path';
 
 interface Equation {
     answer: number;
