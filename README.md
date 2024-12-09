@@ -27,17 +27,14 @@ npm run aoc -- scaffold --day <day> --year <year>
  - `--year` (optional): The year of the challenge. Defaults to the current year.
 
 ### Project Structure
- - `src/app/challenges/`: Contains the challenge implementations.
- - `src/app/services/`: Contains various services like Executor, InputProvider, Scaffolder, etc.
- - `src/app/models/`: Contains data models like LinkedList.
- - `src/app/inputs/`: Contains input data for the challenges.
- - `src/app/samples/`: Contains sample input data for testing.
-
-### Running Tests
-To run the tests, use the following command:
-```sh
-npm test
-```
+ - `src/challenges/`: Contains the challenge implementations.
+ - `src/commands/`: Contains the configured commands.
+ - `src/config/`: Contains the config files.
+ - `src/helpers/`: Contains various helpers for solving challenges.
+ - `src/models/`: Contains data models like LinkedList.
+ - `src/services/`: Contains various services like Executor, InputProvider, Scaffolder, etc.
+ - `inputs/`: Contains input data for the challenges.
+ - `samples/`: Contains sample input data for testing.
 
 ### Building the Project
 To build the project, use the following command:
@@ -57,13 +54,11 @@ APP_AOC_SESSION_COOKIE=your_session_cookie_here
 ### Dependencies
 The project relies on several dependencies, including:
 
- - `@deepkit/app`
- - `@deepkit/logger`
  - `axios`
- - `jest`
- - `typescript`
+ - `commander`
+ - `dotenv`
+ - `mathjs`
+ - `typedi`
 
 For a complete list of dependencies, refer to the `package.json` file.
 
-### License
-This project is licensed under the MIT License.
