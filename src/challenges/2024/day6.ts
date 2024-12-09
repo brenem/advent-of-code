@@ -167,26 +167,4 @@ export class Day6 extends Challenge {
 
         return nextHeading;
     }
-
-    private dumpGrid(grid: string[][]): void {
-        for (let i = 0; i < grid.length; i++) {
-            console.log(grid[i].join(''));
-        }
-        console.log('----------------------------');
-    }
-
-    private getDirectionChar(direction: Direction): string {
-        switch (direction) {
-            case Direction.North:
-                return '^';
-            case Direction.South:
-                return 'v';
-            case Direction.East:
-                return '>';
-            case Direction.West:
-                return '<';
-            default:
-                throw new Error('Invalid direction');
-        }
-    }
 }

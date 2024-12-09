@@ -2,15 +2,15 @@ import { Service } from "typedi";
 
 @Service()
 export class Logger {
-    error(message: string) {
-        console.error(message);
+    error(message?: any, ...optionalParams: any[]) {
+        console.error(message, ...optionalParams);
     }
 
-    log(message: string) {
-        console.log(message);
+    log(message?: any, ...optionalParams: any[]) {
+        console.log(message, ...optionalParams);
     }
 
-    warn(message: string) {
-        console.warn(message);
+    warn(message?: any, ...optionalParams: any[]) {
+        console.warn(message, ...optionalParams);
     }    
 }
