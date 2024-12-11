@@ -1,41 +1,41 @@
-import { FileUtil } from '../helpers/file-util';
 import { Logger } from './logger';
 import { Service } from 'typedi';
+import { FileHandler } from './file-handler';
 
 @Service()
 export class Scaffolder {
-    constructor(private logger: Logger) {}
+    constructor(private logger: Logger, private fileHandler: FileHandler) {}
 
     public async scaffold(day: number, year: number): Promise<void> {
-        const challengeFilepath = `/src/${year}/day${day}.ts`;
-        const samplesPart1Filepath = `/samples/${year}/day${day}/part1.txt`;
-        const samplesPart2Filepath = `/samples/${year}/day${day}/part2.txt`;
+        const challengeFilepath = `src/challenges/${year}/day${day}.ts`;
+        const samplesPart1Filepath = `samples/${year}/day${day}/part1.txt`;
+        const samplesPart2Filepath = `samples/${year}/day${day}/part2.txt`;
 
-        if (await FileUtil.exists(challengeFilepath)) {
+        if (await this.fileHandler.exists(challengeFilepath)) {
             this.logger.warn(
                 `Challenge already exists: ${challengeFilepath}, skipping...`
             );
         } else {
-            await FileUtil.writeText(
+            await this.fileHandler.writeText(
                 challengeFilepath,
                 this.getChallengeTemplate(year, day)
             );
         }
 
-        if (await FileUtil.exists(samplesPart1Filepath)) {
+        if (await this.fileHandler.exists(samplesPart1Filepath)) {
             this.logger.warn(
                 `Sample part 1 already exists: ${samplesPart1Filepath}, skipping...`
             );
         } else {
-            await FileUtil.writeText(samplesPart1Filepath, '');
+            await this.fileHandler.writeText(samplesPart1Filepath, '');
         }
 
-        if (await FileUtil.exists(samplesPart2Filepath)) {
+        if (await this.fileHandler.exists(samplesPart2Filepath)) {
             this.logger.warn(
                 `Sample part 2 already exists: ${samplesPart2Filepath}, skipping...`
             );
         } else {
-            await FileUtil.writeText(samplesPart2Filepath, '');
+            await this.fileHandler.writeText(samplesPart2Filepath, '');
         }
     }
 

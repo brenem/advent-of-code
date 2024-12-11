@@ -1,9 +1,9 @@
 import * as fs from 'node:fs';
+import { Service } from "typedi";
 
-export class FileUtil {
-    private constructor() {}
-
-    static async exists(path: string): Promise<boolean> {
+@Service()
+export class FileHandler {
+    async exists(path: string): Promise<boolean> {
         return new Promise((resolve) => {
             fs.access(path, fs.constants.F_OK, (err) => {
                 resolve(!err);
@@ -11,7 +11,7 @@ export class FileUtil {
         });
     }
 
-    static async readAllText(path: string): Promise<string> {
+    async readAllText(path: string): Promise<string> {
         return new Promise((resolve, reject) => {
             fs.readFile(path, 'utf8', (err, data) => {
                 if (err) {
@@ -23,8 +23,15 @@ export class FileUtil {
         });
     }
 
-    static async writeText(path: string, data: string): Promise<void> {
+    async writeText(path: string, data: string): Promise<void> {
         return new Promise((resolve, reject) => {
+            // if folder at path does not exist, create it before writing the file
+            const folder = path.substring(0, path.lastIndexOf('/'));
+            if (!fs.existsSync(folder)) {
+                // create folder
+                fs.mkdirSync(folder); 
+            }
+            
             fs.writeFile(path, data, 'utf8', (err) => {
                 if (err) {
                     reject(err);
