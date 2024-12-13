@@ -1,12 +1,12 @@
 import { Challenge } from '../challenge';
 
 export class Day3 extends Challenge {
-    async part1(input: string): Promise<number> {
+    async part1(input: string): Promise<bigint> {
         const muls = input.match(/mul\(\d+,\d+\)/g)?.map((m) => m) || [];
-        return this.sumMuls(muls);
+        return BigInt(this.sumMuls(muls));
     }
 
-    async part2(input: string): Promise<number> {
+    async part2(input: string): Promise<bigint> {
         const matches = input.match(/(do\(\)|don\'t\(\)|mul\(\d+,\d+\))/g);
         const muls: string[] = [];
         let enabled = true;
@@ -27,7 +27,7 @@ export class Day3 extends Challenge {
             }
         }
 
-        return this.sumMuls(muls);
+        return BigInt(this.sumMuls(muls));
     }
 
     private sumMuls(muls: string[]): number {

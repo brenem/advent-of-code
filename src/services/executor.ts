@@ -12,34 +12,34 @@ export class Executor {
         public inputProvider: InputProvider
     ) {}
 
-    async run(day: number, year: number, isSampleTest: boolean) {
+    async run(day: number, year: number, isSampleTest: boolean, part?: number) {
         const challenge = await this.challengeLocator.findChallenge(day, year);
-        
+
         if (challenge) {
             if (isSampleTest) {
-                const part1Input = await this.inputProvider.getSample(
-                    day,
-                    1,
-                    year
-                );
-                const part2Input = await this.inputProvider.getSample(
-                    day,
-                    2,
-                    year
-                );
 
-                await this.runPart1(challenge, part1Input);
-                await this.runPart2(challenge, part2Input);
+                if (!part || part === 1) {
+                    const part1Input = await this.inputProvider.getSample(day, 1, year);
+                    await this.runPart1(challenge, part1Input);
+                }
+
+                if (!part || part === 2) {
+                    const part2Input = await this.inputProvider.getSample(day, 2, year);
+                    await this.runPart2(challenge, part2Input);
+                }
             } else {
                 const input = await this.inputProvider.getInput(day, year);
 
-                await this.runPart1(challenge, input);
-                await this.runPart2(challenge, input);
+                if (!part || part === 1) {
+                    await this.runPart1(challenge, input);
+                }
+
+                if (!part || part === 2) {
+                    await this.runPart2(challenge, input);
+                }
             }
         } else {
-            this.logger.error(
-                `No challenge found for day ${day}, year ${year}`
-            );
+            this.logger.error(`No challenge found for day ${day}, year ${year}`);
         }
     }
 
@@ -55,9 +55,7 @@ export class Executor {
         const endTime = performance.now();
 
         this.logger.log(`Part 1: ${result}`);
-        this.logger.log(
-            `Execution time: ${Math.round(endTime - startTime)} ms\n`
-        );
+        this.logger.log(`Execution time: ${Math.round(endTime - startTime)} ms\n`);
     }
 
     private async runPart2(challenge: Challenge, input: string) {
@@ -72,8 +70,6 @@ export class Executor {
         const endTime = performance.now();
 
         this.logger.log(`Part 2: ${result}`);
-        this.logger.log(
-            `Execution time: ${Math.round(endTime - startTime)} ms\n`
-        );
+        this.logger.log(`Execution time: ${Math.round(endTime - startTime)} ms\n`);
     }
 }

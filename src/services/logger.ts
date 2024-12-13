@@ -12,5 +12,9 @@ export class Logger {
 
     warn(message?: any, ...optionalParams: any[]) {
         console.warn(message, ...optionalParams);
-    }    
+    }
+    
+    debug(message?: any, ...optionalParams: any[]) {
+        console.debug(message, ...optionalParams);
+    }
 }

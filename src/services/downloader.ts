@@ -6,30 +6,31 @@ import { Service } from 'typedi';
 export class Downloader {
     constructor(private config: AppConfig) { }
 
-    async downloadInput(day: number, year?: number): Promise<string> {
+    async downloadInput(day: number, year?: number): Promise<Buffer> {
         // if year is not provided, default to the current year
         year = year || new Date().getFullYear();
 
         const url = this.config.aocChallengeUrlTemplate
             .replace(':year', year.toString())
             .replace(':day', day.toString());
-        const result = await this.get<string>(`${url}/input`);
-        return result;
+        const result = await this.get(`${url}/input`);
+        return Buffer.from(result);
     }
 
-    private async get<T>(url: string) {
+    private async get(url: string): Promise<ArrayBuffer> {
         if (!this.config.aocSessionCookie) {
             throw new Error('Missing AOC session cookie');
         }
 
-        const response = await axios.request<T>({
+        const response = await axios.get(url, {
             headers: {
-                cookie: `session=${this.config.aocSessionCookie}`
+                ['Accept']: 'application/octet-stream, application/json, text/plain, */*',
+                cookie: `session=${this.config.aocSessionCookie}`,
+                ['User-Agent']: this.config.userAgent
             },
-            method: 'GET',
-            url
+            responseType: 'arraybuffer'
         });
 
-        return response.data as T;
+        return response.data;
     }
 }

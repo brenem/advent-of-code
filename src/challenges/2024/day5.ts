@@ -1,7 +1,7 @@
 import { Challenge } from '../challenge';
 
 export class Day5 extends Challenge {    
-    async part1(input: string): Promise<number> {
+    async part1(input: string): Promise<bigint> {
         const [rulesStr, updatesStr] = this.dataLoader.readLines(input, line => line, /\n\s*\n/g);
         const rules = this.dataLoader.readLines(rulesStr, line => line.split('|').map(x => parseInt(x)));
         const updates = this.dataLoader.readLines(updatesStr, line => line.split(',').map(x => parseInt(x)));
@@ -9,10 +9,10 @@ export class Day5 extends Challenge {
         const validUpdates = this.findValidUpdates(rules, updates);
         const middleSum = this.getMiddleSum(validUpdates);
 
-        return middleSum;
+        return BigInt(middleSum);
     }
 
-    async part2(input: string): Promise<number> {
+    async part2(input: string): Promise<bigint> {
         const [rulesStr, updatesStr] = this.dataLoader.readLines(input, line => line, /\n\s*\n/g);
         const rules = this.dataLoader.readLines(rulesStr, line => line.split('|').map(x => parseInt(x)));
         const updates = this.dataLoader.readLines(updatesStr, line => line.split(',').map(x => parseInt(x)));
@@ -24,7 +24,7 @@ export class Day5 extends Challenge {
 
         const middleSum = this.getMiddleSum(correctedUpdates);
 
-        return middleSum;
+        return BigInt(middleSum);
     }
 
     private findValidUpdates(rules: number[][], updates: number[][]): number[][] {

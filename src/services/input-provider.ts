@@ -21,9 +21,10 @@ export class InputProvider {
             'Input file not found, downloading from Advent of Code\n'
         );
         const result = await this.downloader.downloadInput(day, year);
-        await this.fileHandler.writeText(filePath, result);
+        await this.fileHandler.writeBuffer(filePath, result);
 
-        return result;
+        const fileContent = await this.fileHandler.readAllText(filePath);
+        return fileContent;
     }
 
     async getSample(day: number, part: number, year?: number) {

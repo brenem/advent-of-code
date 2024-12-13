@@ -41,4 +41,23 @@ export class FileHandler {
             });
         });
     }
+
+    async writeBuffer(path: string, data: Buffer): Promise<void> {
+        return new Promise((resolve, reject) => {
+            // if folder at path does not exist, create it before writing the file
+            const folder = path.substring(0, path.lastIndexOf('/'));
+            if (!fs.existsSync(folder)) {
+                // create folder
+                fs.mkdirSync(folder); 
+            }
+            
+            fs.writeFile(path, data,  'utf8', (err) => {
+                if (err) {
+                    reject(err);
+                }
+
+                resolve();
+            });
+        });
+    }
 }

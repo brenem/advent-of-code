@@ -1,7 +1,7 @@
 import { Challenge } from '../challenge';
 
 export class Day1 extends Challenge {    
-    async part1(input: string): Promise<number> {
+    async part1(input: string): Promise<bigint> {
         const data = this.getData(input);
 
         const leftNumbers = data.map((d) => d.leftNum).sort();
@@ -12,10 +12,10 @@ export class Day1 extends Challenge {
             distances.push(Math.abs(rightNumbers[i] - leftNumbers[i]));
         }
 
-        return distances.reduce((acc, curr) => acc + curr, 0);
+        return BigInt(distances.reduce((acc, curr) => acc + curr, 0));
     }
 
-    async part2(input: string): Promise<number> {
+    async part2(input: string): Promise<bigint> {
         const data = this.getData(input);
 
         const leftNumbers = data.map((d) => d.leftNum);
@@ -29,7 +29,7 @@ export class Day1 extends Challenge {
             similarityScores.push(similarityScore);
         }
 
-        return similarityScores.reduce((acc, curr) => acc + curr, 0);
+        return BigInt(similarityScores.reduce((acc, curr) => acc + curr, 0));
     }
 
     private getData(input: string): { leftNum: number; rightNum: number }[] {

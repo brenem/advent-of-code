@@ -6,7 +6,7 @@ export abstract class Challenge {
     protected logger = Container.get(Logger);
     protected dataLoader = Container.get(DataLoader);
     
-    abstract part1(input: string): Promise<number>;
+    abstract part1(input: string): Promise<bigint>;
 
-    abstract part2(input: string): Promise<number>;
+    abstract part2(input: string): Promise<bigint>;
 }

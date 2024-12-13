@@ -7,7 +7,7 @@ interface PointPair {
 }
 
 export class Day8 extends Challenge {
-    async part1(input: string): Promise<number> {
+    async part1(input: string): Promise<bigint> {
         const grid = this.dataLoader.readLines(input, (line) => line.split(''));
         const antennas = this.findAntennas(grid);
 
@@ -21,10 +21,10 @@ export class Day8 extends Challenge {
         }
 
         const distinct = this.distinctPoints(antinodes);
-        return distinct.length;
+        return BigInt(distinct.length);
     }
 
-    async part2(input: string): Promise<number> {
+    async part2(input: string): Promise<bigint> {
         const grid = this.dataLoader.readLines(input, (line) => line.split(''));
         const antennas = this.findAntennas(grid);
 
@@ -44,9 +44,8 @@ export class Day8 extends Challenge {
         distinct.forEach((antinode) => {
             gridCopy[antinode.y][antinode.x] = '#';
         });
-        this.logger.log(gridCopy.map((row) => row.join('')).join('\n'));
 
-        return distinct.length;
+        return BigInt(distinct.length);
     }
 
     private findAntennas(grid: string[][]): { [key: string]: Point[] } {

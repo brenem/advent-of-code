@@ -2,7 +2,7 @@ import { LinkedList } from '../../models/linked-list';
 import { Challenge } from '../challenge';
 
 export class Day4 extends Challenge {
-    async part1(input: string): Promise<number> {
+    async part1(input: string): Promise<bigint> {
         const horizonatlRightCount = input.match(/XMAS/g)!.length;
         const horizontalLeftCount = input.match(/SAMX/g)!.length;
 
@@ -79,7 +79,7 @@ export class Day4 extends Challenge {
             }
         });
 
-        return (
+        return BigInt(
             horizonatlRightCount +
             horizontalLeftCount +
             verticalDownCount +
@@ -91,7 +91,7 @@ export class Day4 extends Challenge {
         );
     }
 
-    async part2(input: string): Promise<number> {
+    async part2(input: string): Promise<bigint> {
         const data = this.dataLoader.readLines(input, (line) => line.split(''));
 
         let x_masCount = 0;
@@ -119,6 +119,6 @@ export class Day4 extends Challenge {
             }
         });
 
-        return x_masCount;
+        return BigInt(x_masCount);
     }
 }
