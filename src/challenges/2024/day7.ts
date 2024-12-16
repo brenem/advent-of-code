@@ -6,14 +6,14 @@ interface Equation {
 }
 
 export class Day7 extends Challenge {
-    async part1(input: string): Promise<bigint> {
+    async part1(input: string): Promise<number | bigint> {
         const equations = this.parseInput(input);
         const trueEquations = this.getTrueEquations(equations);
         const answers = trueEquations.map((x) => x.answer);
         return BigInt(answers.reduce((acc, curr) => acc + curr, 0));
     }
 
-    async part2(input: string): Promise<bigint> {
+    async part2(input: string): Promise<number | bigint> {
         const equations = this.parseInput(input);
         const trueEquations = this.getTrueEquations(equations);
         const answersBeforeElephants = trueEquations.map((x) => x.answer);

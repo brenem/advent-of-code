@@ -29,7 +29,7 @@ export class FileHandler {
             const folder = path.substring(0, path.lastIndexOf('/'));
             if (!fs.existsSync(folder)) {
                 // create folder
-                fs.mkdirSync(folder); 
+                fs.mkdirSync(folder, { recursive: true }); 
             }
             
             fs.writeFile(path, data, 'utf8', (err) => {
@@ -48,7 +48,7 @@ export class FileHandler {
             const folder = path.substring(0, path.lastIndexOf('/'));
             if (!fs.existsSync(folder)) {
                 // create folder
-                fs.mkdirSync(folder); 
+                fs.mkdirSync(folder, { recursive: true }); 
             }
             
             fs.writeFile(path, data,  'utf8', (err) => {

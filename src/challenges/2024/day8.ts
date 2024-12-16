@@ -7,7 +7,7 @@ interface PointPair {
 }
 
 export class Day8 extends Challenge {
-    async part1(input: string): Promise<bigint> {
+    async part1(input: string): Promise<number | bigint> {
         const grid = this.dataLoader.readLines(input, (line) => line.split(''));
         const antennas = this.findAntennas(grid);
 
@@ -24,7 +24,7 @@ export class Day8 extends Challenge {
         return BigInt(distinct.length);
     }
 
-    async part2(input: string): Promise<bigint> {
+    async part2(input: string): Promise<number | bigint> {
         const grid = this.dataLoader.readLines(input, (line) => line.split(''));
         const antennas = this.findAntennas(grid);
 

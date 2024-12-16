@@ -2,7 +2,7 @@ import { Challenge } from '../challenge';
 import { LinkedList } from '../../models/linked-list';
 
 export class Day2 extends Challenge {
-    async part1(input: string): Promise<bigint> {
+    async part1(input: string): Promise<number | bigint> {
         const inputData = this.dataLoader.readLines(input, (line) => line.split(' ').map((n) => parseInt(n)));
         const data: LinkedList<number>[] = [];
         
@@ -22,7 +22,7 @@ export class Day2 extends Challenge {
         return BigInt(safeReports);
     }
 
-    async part2(input: string): Promise<bigint> {
+    async part2(input: string): Promise<number | bigint> {
         const inputData = this.dataLoader.readLines(input, (line) => line.split(' ').map((n) => parseInt(n)));
         const data: LinkedList<number>[] = [];
         

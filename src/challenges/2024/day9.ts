@@ -8,9 +8,12 @@ interface Block {
     length: number;
 }
 
+type FreeSpace = '.';
+type FileId = number;
+type DiskRepresentation = (FreeSpace | FileId)[];
+
 export class Day9 extends Challenge {
-    private readonly fileHandler = Container.get(FileHandler);
-    async part1(input: string): Promise<bigint> {
+    async part1(input: string): Promise<number | bigint> {
         const diskMap = this.dataLoader.readLines(input, (line) => line.split('').map(Number))[0];
 
         const blocks = this.parseDiskMap(diskMap);
@@ -21,19 +24,61 @@ export class Day9 extends Challenge {
         return checksum;
     }
 
-    async part2(input: string): Promise<bigint> {
+    async part2(input: string): Promise<number | bigint> {
         const diskMap = this.dataLoader.readLines(input, (line) => line.split('').map(Number))[0];
 
-        const blocks = this.parseDiskMap(diskMap);
-        const layout = this.generateWholeFileLayout(blocks);
+        function transformDiskMapToDisk(diskMapInput: number[]): DiskRepresentation {
+            return diskMapInput.flatMap((number, currentIndex) => {
+                    return Array(number).fill(currentIndex % 2 === 0 ? Number(currentIndex) / 2 : ".");
+                }
+            );
+        }
+
+        function howManyFilesWithId(disk: DiskRepresentation, currentIndex: number): number {
+            let count = 1;
+        
+            let j = currentIndex + 1;
+        
+            while (disk[j] === disk[currentIndex]) {
+                count++;
+                j++;
+            }
+        
+            return count;
+        }
+
+        const disk = transformDiskMapToDisk(diskMap);
+
+        for (let num = Math.ceil(diskMap.length / 2) - 1; num >= 0; num--) {
+            const idStartIndex = disk.indexOf(num),
+                filesCount = howManyFilesWithId(disk, idStartIndex);
+    
+            for (let j = 0; j < idStartIndex; j++) {
+                if (disk[j] === "." && howManyFilesWithId(disk, j) >= filesCount) {
+                    disk.splice(idStartIndex, filesCount, ...Array(filesCount).fill("."));
+                    disk.splice(j, filesCount, ...Array(filesCount).fill(num));
+    
+                    break;
+                }
+            }
+        }
+
+        function calculateChecksum(disk: (FreeSpace | FileId)[]): number {
+            return disk.reduce((previousSum, currentNumber, currentFileId) => {
+                return currentNumber === "." ? previousSum : Number(previousSum) + Number(currentNumber) * Number(currentFileId);
+            }, 0) as number;
+        }
+
+        // const blocks = this.parseDiskMap(diskMap);
+        // const layout = this.generateWholeFileLayout(blocks);
         // this.logger.debug(layout.join(''));
-        const compressedWholeFiles = this.compressWholeFiles(layout, layout.length - 1);
+        // const compressedWholeFiles = this.compressWholeFiles(layout, layout.length - 1);
         // this.logger.debug(compressedWholeFiles.join(''));
         // this.logger.debug(compressedWholeFiles.join(''));
-        const compressed = compressedWholeFiles.join('').split('');
+        // const compressed = compressedWholeFiles.join('').split('');
         // this.logger.debug(compressed.join(''));
 
-        const checksum = this.getChecksum(compressed);
+        const checksum = calculateChecksum(disk);
         return checksum;
     }
 

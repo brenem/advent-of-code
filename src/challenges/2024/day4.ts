@@ -2,7 +2,7 @@ import { LinkedList } from '../../models/linked-list';
 import { Challenge } from '../challenge';
 
 export class Day4 extends Challenge {
-    async part1(input: string): Promise<bigint> {
+    async part1(input: string): Promise<number | bigint> {
         const horizonatlRightCount = input.match(/XMAS/g)!.length;
         const horizontalLeftCount = input.match(/SAMX/g)!.length;
 
@@ -91,7 +91,7 @@ export class Day4 extends Challenge {
         );
     }
 
-    async part2(input: string): Promise<bigint> {
+    async part2(input: string): Promise<number | bigint> {
         const data = this.dataLoader.readLines(input, (line) => line.split(''));
 
         let x_masCount = 0;

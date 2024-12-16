@@ -43,11 +43,11 @@ export class Scaffolder {
         return `import { Challenge } from '../challenge';
 
 export class Day${day} extends Challenge {    
-    async part1(input: string): Promise<bigint> {
+    async part1(input: string): Promise<number | bigint> {
         return 0n;
     }
 
-    async part2(input: string): Promise<bigint> {
+    async part2(input: string): Promise<number | bigint> {
         return 0n;
     }
 }`;

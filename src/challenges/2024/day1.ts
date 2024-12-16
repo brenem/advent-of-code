@@ -1,7 +1,7 @@
 import { Challenge } from '../challenge';
 
 export class Day1 extends Challenge {    
-    async part1(input: string): Promise<bigint> {
+    async part1(input: string): Promise<number | bigint> {
         const data = this.getData(input);
 
         const leftNumbers = data.map((d) => d.leftNum).sort();
@@ -15,7 +15,7 @@ export class Day1 extends Challenge {
         return BigInt(distances.reduce((acc, curr) => acc + curr, 0));
     }
 
-    async part2(input: string): Promise<bigint> {
+    async part2(input: string): Promise<number | bigint> {
         const data = this.getData(input);
 
         const leftNumbers = data.map((d) => d.leftNum);
