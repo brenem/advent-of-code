@@ -79,7 +79,7 @@ export class Day4 extends Challenge {
             }
         });
 
-        return BigInt(
+        return (
             horizonatlRightCount +
             horizontalLeftCount +
             verticalDownCount +

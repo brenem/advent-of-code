@@ -10,7 +10,7 @@ export class Day6 extends Challenge {
         const grid = this.dataLoader.readLines(input, (line) => line.split(''));
 
         const visited = this.getVisitedHeadings(grid);
-        return BigInt(visited.length);
+        return visited.length;
     }
 
     async part2(input: string): Promise<number | bigint> {
@@ -35,7 +35,7 @@ export class Day6 extends Challenge {
             }
         }
 
-        return BigInt(inifiteLoops);
+        return inifiteLoops;
     }
 
     private getVisitedHeadings(grid: string[][]): { heading: Heading; count: number }[] {
