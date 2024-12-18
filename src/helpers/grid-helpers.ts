@@ -23,3 +23,13 @@ export const move = (location: Point, direction: Direction): Point => {
             throw new Error('Invalid direction');
     }
 };
+
+export const findInSet = <T>(set: Set<T>, pred: (item: T) => boolean): T | undefined => {
+    for (const item of set) {
+        if (pred(item)) {
+            return item;
+        }
+    }
+
+    return undefined;
+};

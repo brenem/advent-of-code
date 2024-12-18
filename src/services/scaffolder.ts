@@ -44,11 +44,11 @@ export class Scaffolder {
 
 export class Day${day} extends Challenge {    
     async part1(input: string): Promise<number | bigint> {
-        return 0n;
+        return 0;
     }
 
     async part2(input: string): Promise<number | bigint> {
-        return 0n;
+        return 0;
     }
 }`;
     }
