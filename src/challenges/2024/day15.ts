@@ -71,18 +71,9 @@ export class Day15 extends Challenge {
         const gridMap = new Grid(map);
         let robot = gridMap.find('@');
 
-        // this.logger.debug(gridMap.toString());
-        // this.logger.debug('\n');
-
         for (const move of moves) {
             robot = this.moveRobotExpanded(gridMap, robot!, move);
-            // this.logger.debug('Move:', dirMap[move]);
-            // this.logger.debug(gridMap.toString());
-            // this.logger.debug('\n');
         }
-
-        // this.logger.debug(gridMap.toString());
-        // this.logger.debug('\n');
 
         const boxCoordinates = gridMap.findAll('[');
         const boxPairs = boxCoordinates.map((box) => this.getBoxPair(gridMap, box)!);
@@ -97,7 +88,6 @@ export class Day15 extends Challenge {
             } else {
                 edgeDistance = rightDistance;
             }
-            // const topDistance = boxPair[0].location.y;
 
             gpsSum += 100 * boxPair[0].location.y + boxPair[0].location.x;
         }
