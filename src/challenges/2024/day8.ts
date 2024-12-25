@@ -21,7 +21,7 @@ export class Day8 extends Challenge {
         }
 
         const distinct = this.distinctPoints(antinodes);
-        return BigInt(distinct.length);
+        return distinct.length;
     }
 
     async part2(input: string): Promise<number | bigint> {
@@ -45,7 +45,7 @@ export class Day8 extends Challenge {
             gridCopy[antinode.y][antinode.x] = '#';
         });
 
-        return BigInt(distinct.length);
+        return distinct.length;
     }
 
     private findAntennas(grid: string[][]): { [key: string]: Point[] } {

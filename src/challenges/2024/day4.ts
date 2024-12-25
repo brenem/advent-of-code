@@ -119,6 +119,6 @@ export class Day4 extends Challenge {
             }
         });
 
-        return BigInt(x_masCount);
+        return x_masCount;
     }
 }

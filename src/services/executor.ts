@@ -3,13 +3,16 @@ import { Challenge } from '../challenges/challenge';
 import { ChallengeLocator } from './challenge-locator';
 import { InputProvider } from './input-provider';
 import { Logger } from './logger';
+import { StatsProvider } from './stats-provider';
+import { ResultWithStats } from '../models/result-with-stats';
 
 @Service()
 export class Executor {
     constructor(
         public logger: Logger,
         public challengeLocator: ChallengeLocator,
-        public inputProvider: InputProvider
+        public inputProvider: InputProvider,
+        public statsProvider: StatsProvider
     ) {}
 
     async run(day: number, year: number, isSampleTest: boolean, part?: number) {
@@ -31,11 +34,13 @@ export class Executor {
                 const input = await this.inputProvider.getInput(day, year);
 
                 if (!part || part === 1) {
-                    await this.runPart1(challenge, input);
+                    const result = await this.runPart1(challenge, input);
+                    this.statsProvider.saveStats(day, year, 1, result);
                 }
 
                 if (!part || part === 2) {
-                    await this.runPart2(challenge, input);
+                    const result = await this.runPart2(challenge, input);
+                    this.statsProvider.saveStats(day, year, 2, result);
                 }
             }
         } else {
@@ -43,33 +48,33 @@ export class Executor {
         }
     }
 
-    private async runPart1(challenge: Challenge, input: string) {
+    private async runPart1(challenge: Challenge, input: string): Promise<ResultWithStats<number | bigint>> {
         if (!input) {
             throw new Error('No input provided for part 1');
         }
 
         this.logger.log('Running part 1...');
 
-        const startTime = performance.now();
-        const result = await challenge.part1(input);
-        const endTime = performance.now();
+        const result = await this.statsProvider.runWithStats(() => challenge.part1(input));
 
-        this.logger.log(`Part 1: ${result}`);
-        this.logger.log(`Execution time: ${Math.round(endTime - startTime)} ms\n`);
+        this.logger.log(`Part 1: ${result.result}`);
+        this.logger.log(`Execution time: ${result.executionTime} ms\n`);
+
+        return result;
     }
 
-    private async runPart2(challenge: Challenge, input: string) {
+    private async runPart2(challenge: Challenge, input: string): Promise<ResultWithStats<number | bigint>> {
         if (!input) {
             throw new Error('No input provided for part 2');
         }
 
         this.logger.log('Running part 2...');
 
-        const startTime = performance.now();
-        const result = await challenge.part2(input);
-        const endTime = performance.now();
+        const result = await this.statsProvider.runWithStats(() => challenge.part2(input));
 
-        this.logger.log(`Part 2: ${result}`);
-        this.logger.log(`Execution time: ${Math.round(endTime - startTime)} ms\n`);
+        this.logger.log(`Part 2: ${result.result}`);
+        this.logger.log(`Execution time: ${result.executionTime} ms\n`);
+
+        return result;
     }
 }

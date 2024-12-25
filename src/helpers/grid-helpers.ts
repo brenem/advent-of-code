@@ -1,23 +1,23 @@
-import { Direction } from '../models/direction';
+import { Direction } from '../models/directions';
 import { Point } from '../models/point';
 
 export const move = (location: Point, direction: Direction): Point => {
     switch (direction) {
-        case Direction.North:
+        case Direction.Up:
             return { x: location.x, y: location.y - 1 };
-        case Direction.South:
+        case Direction.Down:
             return { x: location.x, y: location.y + 1 };
-        case Direction.East:
+        case Direction.Right:
             return { x: location.x + 1, y: location.y };
-        case Direction.West:
+        case Direction.Left:
             return { x: location.x - 1, y: location.y };
-        case Direction.NorthWest:
+        case Direction.UpLeft:
             return { x: location.x - 1, y: location.y - 1 };
-        case Direction.NorthEast:
+        case Direction.UpRight:
             return { x: location.x + 1, y: location.y - 1 };
-        case Direction.SouthWest:
+        case Direction.DownLeft:
             return { x: location.x - 1, y: location.y + 1 };
-        case Direction.SouthEast:
+        case Direction.DownRight:
             return { x: location.x + 1, y: location.y + 1 };
         default:
             throw new Error('Invalid direction');

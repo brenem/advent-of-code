@@ -7,7 +7,7 @@ export const scaffoldCommand = new Command('scaffold')
     .description('Scaffold a new challenge')
     .option('-d, --day <day>', 'The day to scaffold')
     .option('-y, --year <year>', 'The year to scaffold')
-    .action(async (options: {day?: number, year?: number}) => {
+    .action(async (options: { day?: number; year?: number }) => {
         const scaffolder = Container.get(Scaffolder);
         const logger = Container.get(Logger);
 

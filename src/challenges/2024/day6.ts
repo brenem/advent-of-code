@@ -1,4 +1,4 @@
-import { Direction } from '../../models/direction';
+import { Direction } from '../../models/directions';
 import { Heading } from '../../models/heading';
 import { Queue } from '../../models/queue';
 import { Challenge } from '../challenge';
@@ -41,7 +41,7 @@ export class Day6 extends Challenge {
     private getVisitedHeadings(grid: string[][]): { heading: Heading; count: number }[] {
         const startRow = grid.findIndex((row) => row.includes('^'));
         const startCol = grid[startRow].indexOf('^');
-        const startHeading = { location: { x: startCol, y: startRow }, direction: Direction.North };
+        const startHeading = { location: { x: startCol, y: startRow }, direction: Direction.Up };
 
         const queue = new Queue<Heading>();
         queue.enqueue(startHeading);
@@ -93,71 +93,71 @@ export class Day6 extends Challenge {
         let nextHeading: Heading;
 
         switch (currentHeading.direction) {
-            case Direction.North:
-                const newLocationEast = move(currentHeading.location, Direction.East);
+            case Direction.Up:
+                const newLocationEast = move(currentHeading.location, Direction.Right);
                 if (grid[newLocationEast.y][newLocationEast.x] === '#' || grid[newLocationEast.y][newLocationEast.x] === 'O') {
-                    const newLocationSouth = move(currentHeading.location, Direction.South);
+                    const newLocationSouth = move(currentHeading.location, Direction.Down);
                     if (grid[newLocationSouth.y][newLocationSouth.x] === '#' || grid[newLocationSouth.y][newLocationSouth.x] === 'O') {
-                        const newLocationWest = move(currentHeading.location, Direction.West);
-                        nextHeading = { location: newLocationWest, direction: Direction.West };
+                        const newLocationWest = move(currentHeading.location, Direction.Left);
+                        nextHeading = { location: newLocationWest, direction: Direction.Left };
                     } else {
-                        nextHeading = { location: newLocationSouth, direction: Direction.South };
+                        nextHeading = { location: newLocationSouth, direction: Direction.Down };
                     }
                 } else {
                     nextHeading = {
                         location: newLocationEast,
-                        direction: Direction.East
+                        direction: Direction.Right
                     };
                 }
                 break;
-            case Direction.South:
-                let newLocationWest = move(currentHeading.location, Direction.West);
+            case Direction.Down:
+                let newLocationWest = move(currentHeading.location, Direction.Left);
                 if (grid[newLocationWest.y][newLocationWest.x] === '#' || grid[newLocationWest.y][newLocationWest.x] === 'O') {
-                    let newLocationNorth = move(currentHeading.location, Direction.North);
+                    let newLocationNorth = move(currentHeading.location, Direction.Up);
                     if (grid[newLocationNorth.y][newLocationNorth.x] === '#' || grid[newLocationNorth.y][newLocationNorth.x] === 'O') {
-                        let newLocationEast = move(currentHeading.location, Direction.East);
-                        nextHeading = { location: newLocationEast, direction: Direction.East };
+                        let newLocationEast = move(currentHeading.location, Direction.Right);
+                        nextHeading = { location: newLocationEast, direction: Direction.Right };
                     } else {
-                        nextHeading = { location: newLocationNorth, direction: Direction.North };
+                        nextHeading = { location: newLocationNorth, direction: Direction.Up };
                     }
                 } else {
                     nextHeading = {
                         location: newLocationWest,
-                        direction: Direction.West
+                        direction: Direction.Left
                     };
                 }
                 break;
-            case Direction.East:
-                let newLocationSouth = move(currentHeading.location, Direction.South);
+            case Direction.Right:
+                let newLocationSouth = move(currentHeading.location, Direction.Down);
                 if (grid[newLocationSouth.y][newLocationSouth.x] === '#' || grid[newLocationSouth.y][newLocationSouth.x] === 'O') {
-                    let newLocationWest = move(currentHeading.location, Direction.West);
+                    let newLocationWest = move(currentHeading.location, Direction.Left);
                     if (grid[newLocationWest.y][newLocationWest.x] === '#' || grid[newLocationWest.y][newLocationWest.x] === 'O') {
-                        let newLocationNorth = move(currentHeading.location, Direction.North);
-                        nextHeading = { location: newLocationNorth, direction: Direction.North };
+                        let newLocationNorth = move(currentHeading.location, Direction.Up);
+                        nextHeading = { location: newLocationNorth, direction: Direction.Up };
                     } else {
-                        nextHeading = { location: newLocationWest, direction: Direction.West };
+                        nextHeading = { location: newLocationWest, direction: Direction.Left };
                     }
                 } else {
                     nextHeading = {
                         location: newLocationSouth,
-                        direction: Direction.South
+                        direction: Direction.Down
                     };
                 }
                 break;
-            case Direction.West:
-                let newLocationNorth = move(currentHeading.location, Direction.North);
+            case Direction.Left:
+                let newLocationNorth = move(currentHeading.location, Direction.Up);
                 if (grid[newLocationNorth.y][newLocationNorth.x] === '#' || grid[newLocationNorth.y][newLocationNorth.x] === 'O') {
-                    let newLocationEast = move(currentHeading.location, Direction.East);
+                    let newLocationEast = move(currentHeading.location, Direction.Right);
                     if (grid[newLocationEast.y][newLocationEast.x] === '#' || grid[newLocationEast.y][newLocationEast.x] === 'O') {
-                        let newLocationSouth = move(currentHeading.location, Direction.South);
-                        nextHeading = { location: newLocationSouth, direction: Direction.South };
+                        let newLocationSouth = move(currentHeading.location, Direction.Down);
+                        nextHeading = { location: newLocationSouth, direction: Direction.Down };
                     } else {
-                        nextHeading = { location: newLocationEast, direction: Direction.East };
+                        nextHeading = { location: newLocationEast, direction: Direction.Right };
                     }
                 } else {
                     nextHeading = {
                         location: newLocationNorth,
-                        direction: Direction.North
+                        direction: Direction.Up
                     };
                 }
                 break;

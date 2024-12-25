@@ -3,7 +3,7 @@ import { Challenge } from '../challenge';
 export class Day3 extends Challenge {
     async part1(input: string): Promise<number | bigint> {
         const muls = input.match(/mul\(\d+,\d+\)/g)?.map((m) => m) || [];
-        return BigInt(this.sumMuls(muls));
+        return this.sumMuls(muls);
     }
 
     async part2(input: string): Promise<number | bigint> {
@@ -27,7 +27,7 @@ export class Day3 extends Challenge {
             }
         }
 
-        return BigInt(this.sumMuls(muls));
+        return this.sumMuls(muls);
     }
 
     private sumMuls(muls: string[]): number {

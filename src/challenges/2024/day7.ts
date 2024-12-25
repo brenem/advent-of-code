@@ -10,7 +10,7 @@ export class Day7 extends Challenge {
         const equations = this.parseInput(input);
         const trueEquations = this.getTrueEquations(equations);
         const answers = trueEquations.map((x) => x.answer);
-        return BigInt(answers.reduce((acc, curr) => acc + curr, 0));
+        return answers.reduce((acc, curr) => acc + curr, 0);
     }
 
     async part2(input: string): Promise<number | bigint> {
@@ -20,7 +20,7 @@ export class Day7 extends Challenge {
         const trueEquationsWithElephants = this.getTrueEquations(equations, true);
         const answersWithElephants = trueEquationsWithElephants.map((x) => x.answer);
         const uniqueAnswers = [...new Set([...answersBeforeElephants, ...answersWithElephants])];
-        return BigInt(uniqueAnswers.reduce((acc, curr) => acc + curr, 0));
+        return uniqueAnswers.reduce((acc, curr) => acc + curr, 0);
     }
 
     private parseInput(input: string): Equation[] {

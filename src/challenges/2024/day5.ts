@@ -9,7 +9,7 @@ export class Day5 extends Challenge {
         const validUpdates = this.findValidUpdates(rules, updates);
         const middleSum = this.getMiddleSum(validUpdates);
 
-        return BigInt(middleSum);
+        return middleSum;
     }
 
     async part2(input: string): Promise<number | bigint> {
@@ -24,7 +24,7 @@ export class Day5 extends Challenge {
 
         const middleSum = this.getMiddleSum(correctedUpdates);
 
-        return BigInt(middleSum);
+        return middleSum;
     }
 
     private findValidUpdates(rules: number[][], updates: number[][]): number[][] {

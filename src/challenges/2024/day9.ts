@@ -1,6 +1,4 @@
 import { Challenge } from '../challenge';
-import { Container } from 'typedi';
-import { FileHandler } from '../../services/file-handler';
 
 interface Block {
     isFile: boolean;
@@ -133,13 +131,13 @@ export class Day9 extends Challenge {
         return disk;
     }
 
-    private getChecksum(compressed: string[]): bigint {
-        let checksum = 0n;
+    private getChecksum(compressed: string[]): number {
+        let checksum = 0;
         for (let i = 0; i < compressed.length; i++) {
             if (!compressed[i].startsWith('.')) {
                 const parsed = parseInt(compressed[i]);
                 try {
-                    checksum += BigInt(i) * BigInt(parsed);
+                    checksum += i * parsed;
                 } catch (e) {
                     this.logger.error(e);
                 }

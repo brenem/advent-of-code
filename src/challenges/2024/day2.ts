@@ -19,7 +19,7 @@ export class Day2 extends Challenge {
             }
         }
 
-        return BigInt(safeReports);
+        return safeReports;
     }
 
     async part2(input: string): Promise<number | bigint> {
@@ -39,7 +39,7 @@ export class Day2 extends Challenge {
             }
         }
 
-        return BigInt(safeReports);
+        return safeReports;
     }
 
     private isReportSafe(report: LinkedList<number>, withLevelRemoval = false): boolean {
