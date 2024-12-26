@@ -4,10 +4,10 @@ import { Grid, GridCoordinate } from '../../models/grid';
 import { Challenge } from '../challenge';
 
 const dirMap: {[key: number]: string} = {
-    [Direction.Up]: '^',
-    [Direction.Down]: 'v',
-    [Direction.Left]: '<',
-    [Direction.Right]: '>',
+    [Direction.North]: '^',
+    [Direction.South]: 'v',
+    [Direction.West]: '<',
+    [Direction.East]: '>',
 };
 
 export class Day15 extends Challenge {
@@ -98,13 +98,13 @@ export class Day15 extends Challenge {
     private parseDirection(move: string): Direction {
         switch (move) {
             case '^':
-                return Direction.Up;
+                return Direction.North;
             case 'v':
-                return Direction.Down;
+                return Direction.South;
             case '<':
-                return Direction.Left;
+                return Direction.West;
             case '>':
-                return Direction.Right;
+                return Direction.East;
             default:
                 throw new Error(`Invalid direction: ${move}`);
         }
@@ -212,9 +212,9 @@ export class Day15 extends Challenge {
 
     private getBoxPair(grid: Grid, coordinate: GridCoordinate | undefined): GridCoordinate[] | undefined {
         if (coordinate?.character === '[') {
-            return [coordinate.clone(), this.getNextCoordinate(grid, coordinate, Direction.Right)!];
+            return [coordinate.clone(), this.getNextCoordinate(grid, coordinate, Direction.East)!];
         } else if (coordinate?.character === ']') {
-            return [this.getNextCoordinate(grid, coordinate, Direction.Left)!, coordinate.clone()];
+            return [this.getNextCoordinate(grid, coordinate, Direction.West)!, coordinate.clone()];
         } else {
             return undefined;
         }
@@ -222,13 +222,13 @@ export class Day15 extends Challenge {
 
     private getNextCoordinate(grid: Grid, current: GridCoordinate, direction: Direction): GridCoordinate | undefined {
         switch (direction) {
-            case Direction.Up:
+            case Direction.North:
                 return grid.get(current.up.x, current.up.y);
-            case Direction.Down:
+            case Direction.South:
                 return grid.get(current.down.x, current.down.y);
-            case Direction.Left:
+            case Direction.West:
                 return grid.get(current.left.x, current.left.y);
-            case Direction.Right:
+            case Direction.East:
                 return grid.get(current.right.x, current.right.y);
             default:
                 return undefined;
@@ -243,19 +243,19 @@ export class Day15 extends Challenge {
         let nextBoxPart: GridCoordinate | undefined;
         const nextBoxPairs: GridCoordinate[][] = [];
 
-        if (direction === Direction.Right) {
+        if (direction === Direction.East) {
             nextBoxPart = this.getNextCoordinate(grid, boxPairs[0][1], direction);
             const nextBoxPair = this.getBoxPair(grid, nextBoxPart);
             if (nextBoxPair) {
                 nextBoxPairs.push(nextBoxPair);
             }
-        } else if (direction === Direction.Left) {
+        } else if (direction === Direction.West) {
             nextBoxPart = this.getNextCoordinate(grid, boxPairs[0][0], direction);
             const nextBoxPair = this.getBoxPair(grid, nextBoxPart);
             if (nextBoxPair) {
                 nextBoxPairs.push(nextBoxPair);
             }
-        } else if (direction === Direction.Up || direction === Direction.Down) {
+        } else if (direction === Direction.North || direction === Direction.South) {
             for (const boxPair of boxPairs) {
                 const nextLeftBoxPart = this.getNextCoordinate(grid, boxPair[0], direction);
                 const nextRightBoxPart = this.getNextCoordinate(grid, boxPair[1], direction);

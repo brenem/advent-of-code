@@ -1,10 +1,10 @@
 export enum Direction {
-    Up,
-    Down,
-    Left,
-    Right,
-    UpLeft,
-    UpRight,
-    DownLeft,
-    DownRight
+    North,
+    East,
+    South,
+    West,
+    NorthWest,
+    NorthEast,
+    SouthWest,
+    SouthEast
 }

@@ -5,13 +5,13 @@ export interface IQueue<T> {
 }
 
 export class Queue<T> implements IQueue<T> {
-    private storage:    T[] = [];
+    private storage: T[] = [];
 
     constructor(private capacity: number = Infinity) {
         this.storage = [];
     }
 
-    public enqueue(item: T): void {
+    enqueue(item: T): void {
         if (this.size() === this.capacity) {
             throw Error('Queue has reached max capacity, you cannot add more items');
         }
@@ -19,11 +19,15 @@ export class Queue<T> implements IQueue<T> {
         this.storage.push(item);
     }
 
-    public dequeue(): T | undefined {
+    dequeue(): T | undefined {
         return this.storage.shift();
     }
 
-    public size(): number {
+    size(): number {
         return this.storage.length;
+    }
+
+    sort(compareFn: (a: T, b: T) => number): void {
+        this.storage.sort(compareFn);
     }
 }
