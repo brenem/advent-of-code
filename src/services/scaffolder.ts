@@ -40,14 +40,15 @@ export class Scaffolder {
     }
 
     private getChallengeTemplate(year: number, day: number): string {
-        return `import { Challenge } from '../challenge';
+        return `import { PuzzleResult } from '../../models/puzzle-result';
+import { Challenge } from '../challenge';
 
 export class Day${day} extends Challenge {    
-    async part1(input: string): Promise<number | bigint> {
+    async part1(input: string): Promise<PuzzleResult> {
         return 0;
     }
 
-    async part2(input: string): Promise<number | bigint> {
+    async part2(input: string): Promise<PuzzleResult> {
         return 0;
     }
 }`;

@@ -9,7 +9,6 @@
         "aoc:debug": "tsc && node --stack-size=65500 --inspect dist/app.js"
     },
     "dependencies": {
-        "astar-typescript": "^1.2.7",
         "axios": "^1.7.8",
         "commander": "^12.1.0",
         "dotenv": "^16.4.7",

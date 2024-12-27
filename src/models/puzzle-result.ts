@@ -1,0 +1,1 @@
+export type PuzzleResult = number | bigint | string;

@@ -5,6 +5,7 @@ import { InputProvider } from './input-provider';
 import { Logger } from './logger';
 import { StatsProvider } from './stats-provider';
 import { ResultWithStats } from '../models/result-with-stats';
+import { PuzzleResult } from '../models/puzzle-result';
 
 @Service()
 export class Executor {
@@ -48,7 +49,7 @@ export class Executor {
         }
     }
 
-    private async runPart1(challenge: Challenge, input: string): Promise<ResultWithStats<number | bigint>> {
+    private async runPart1(challenge: Challenge, input: string): Promise<ResultWithStats<PuzzleResult>> {
         if (!input) {
             throw new Error('No input provided for part 1');
         }
@@ -63,7 +64,7 @@ export class Executor {
         return result;
     }
 
-    private async runPart2(challenge: Challenge, input: string): Promise<ResultWithStats<number | bigint>> {
+    private async runPart2(challenge: Challenge, input: string): Promise<ResultWithStats<PuzzleResult>> {
         if (!input) {
             throw new Error('No input provided for part 2');
         }
