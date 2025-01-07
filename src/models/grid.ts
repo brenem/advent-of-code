@@ -1,26 +1,26 @@
 import { Point } from './point';
 
 export class GridCoordinate {
-    constructor(public character: string, public location: Point) {}
+    constructor(public grid: Grid, public character: string, public location: Point) {}
 
-    get left(): Point {
+    get west(): Point {
         return { x: this.location.x - 1, y: this.location.y };
     }
 
-    get right(): Point {
+    get east(): Point {
         return { x: this.location.x + 1, y: this.location.y };
     }
 
-    get up(): Point {
+    get north(): Point {
         return { x: this.location.x, y: this.location.y - 1 };
     }
 
-    get down(): Point {
+    get south(): Point {
         return { x: this.location.x, y: this.location.y + 1 };
     }
 
     clone(): GridCoordinate {
-        return new GridCoordinate(this.character, this.location);
+        return new GridCoordinate(this.grid, this.character, this.location);
     }
 }
 
@@ -90,7 +90,7 @@ export class Grid {
             const row = [];
 
             for (let x = 0; x < grid[y].length; x++) {
-                const coordinate = new GridCoordinate(grid[y][x], { x, y });
+                const coordinate = new GridCoordinate(this, grid[y][x], { x, y });
                 row.push(coordinate);
             }
 

@@ -21,8 +21,10 @@ export const downloadInputCommand = new Command('download-input')
             return;
         }
 
-        // if year is not provided, default to the current year
-        options.year = options.year || new Date().getFullYear();
+        if (!options.year) {
+            const now = new Date();
+            options.year = now.getMonth() < 11 ? now.getFullYear() - 1 : now.getFullYear();
+        }
 
         logger.log(`Downloading input for day ${options.day}, year ${options.year}`);
 

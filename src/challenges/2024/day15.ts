@@ -223,13 +223,13 @@ export class Day15 extends Challenge {
     private getNextCoordinate(grid: Grid, current: GridCoordinate, direction: Direction): GridCoordinate | undefined {
         switch (direction) {
             case Direction.North:
-                return grid.get(current.up.x, current.up.y);
+                return grid.get(current.north.x, current.north.y);
             case Direction.South:
-                return grid.get(current.down.x, current.down.y);
+                return grid.get(current.south.x, current.south.y);
             case Direction.West:
-                return grid.get(current.left.x, current.left.y);
+                return grid.get(current.west.x, current.west.y);
             case Direction.East:
-                return grid.get(current.right.x, current.right.y);
+                return grid.get(current.east.x, current.east.y);
             default:
                 return undefined;
         }

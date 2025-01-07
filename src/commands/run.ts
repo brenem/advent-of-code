@@ -9,7 +9,7 @@ export const runCommand = new Command('run')
     .option('-y, --year <year>', 'The year to run')
     .option('-p, --part <part>', 'The part to run')
     .option('-s, --sample', 'Run with sample input')
-    .action(async (options: { day?: string; year?: string; part?: string; sample?: string }) => {
+    .action(async (options: { day?: number; year?: number; part?: number; sample?: boolean }) => {
         const executor = Container.get(Executor);
         const logger = Container.get(Logger);
 
@@ -26,8 +26,10 @@ export const runCommand = new Command('run')
             return;
         }
 
-        // if year is not provided, default to the current year
-        year = year || new Date().getFullYear();
+        if (!year) {
+            const now = new Date();
+            year = now.getMonth() < 11 ? now.getFullYear() - 1 : now.getFullYear();
+        }
 
         // default sample to false if not provided
         sample = sample || false;

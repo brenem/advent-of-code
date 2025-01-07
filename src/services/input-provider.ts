@@ -8,8 +8,10 @@ export class InputProvider {
     constructor(private logger: Logger, private downloader: Downloader, private fileHandler: FileHandler) {}
 
     async getInput(day: number, year?: number): Promise<string> {
-        // if year is not provided, default to the current year
-        year = year || new Date().getFullYear();
+        if (!year) {
+            const now = new Date();
+            year = now.getMonth() < 11 ? now.getFullYear() - 1 : now.getFullYear();
+        }
 
         const filePath = `inputs/${year}/day${day}.txt`;
         if (await this.fileHandler.exists(filePath)) {
